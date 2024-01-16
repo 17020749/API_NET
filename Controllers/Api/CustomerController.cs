@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using API_CORE.Data;
 using API_CORE.Models;
 using API_CORE.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 namespace API.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -20,13 +16,31 @@ namespace API.Controllers.Api
         {
             _customerService = customerService;
         }
+    [HttpGet("GetInfor")]
+    [Authorize] // Yêu cầu xác thực
+    public IActionResult SomeSecuredEndpoint()
+    {
+        // Đây là một endpoint yêu cầu xác thực. 
+        // Bạn có thể truy cập thông tin đăng nhập qua HttpContext.User
 
+        var userName = HttpContext.User.Identity.Name;
+        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        // Các logic xử lý khác
+
+        return Ok($"Hello, authenticated user {userName} (ID: {userId})!");
+    }
         // GET: api/ApiCustomer
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> GetCustomers()
         {
-            var customer = await _customerService.GetAll();
-            return Ok(customer);
+            if(User.HasClaim("Permission", "Get")) 
+            {
+                var customer = await _customerService.GetAll();
+                return Ok(customer);
+            }
+         return Forbid();
         }
 
         // GET: api/ApiCustomer/5

@@ -563,3 +563,4 @@ C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\scopedcss\bundle\API_CORE.s
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.csproj.CopyComplete
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.genruntimeconfig.cache
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\ref\API_CORE.dll
+C:\Users\Vlive_Core\Desktop\API_NET\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
