@@ -31,20 +31,10 @@ namespace API.Controllers.Api
 
         // GET: api/ApiCustomer/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<Customer>> GetCustomerById(int id)
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
-            var customer = await _context.Customers.FindAsync(id);
-
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return customer;
+          
+            return Ok(await _customerService.GetById(id));
         }
 
         // PUT: api/ApiCustomer/5
@@ -52,70 +42,28 @@ namespace API.Controllers.Api
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, Customer customer)
         {
-            if (id != customer.CustomerId)
-            {
-                return BadRequest();
-            }
+            
 
-            _context.Entry(customer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok(await _customerService.Update(id,customer));
         }
 
         // POST: api/ApiCustomer
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Customer>> PostCustomer([Bind("CustomerId,FirstName,LastName,Phone,Email,Street,City,State,ZipCode")] Customer customer)
         {
-          if (_context.Customers == null)
-          {
-              return Problem("Entity set 'BikeStoresContext.Customers'  is null.");
-          }
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+          
 
-            return CreatedAtAction("GetCustomer", new { id = customer.CustomerId }, customer);
+            return Ok(await _customerService.Insert(customer));
         }
 
         // DELETE: api/ApiCustomer/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
-            if (_context.Customers == null)
-            {
-                return NotFound();
-            }
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
+           
 
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CustomerExists(int id)
-        {
-            return (_context.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
+            return Ok(await _customerService.Delete(id));
         }
     }
 }

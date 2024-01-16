@@ -5,8 +5,9 @@ using API_CORE.Services;
 using API_CORE.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
+using NuGet.Protocol.Plugins;
 
-namespace ProductAPIVS.Container;
+namespace API_CORE.Container;
 public class CustomerService : ICustomerService
 {
     private readonly BikeStoresContext _DBContext;
@@ -21,31 +22,45 @@ public class CustomerService : ICustomerService
          res = await _DBContext.Customers.ToListAsync();
         return res;
     }
-    public async Task<Customer> GetbyCode(int id)
+    public async Task<Object> GetById(int id)
     {
-        var customer = await _DBContext.Customers.FindAsync(id);
+        Customer customer = new Customer();
+         customer = await _DBContext.Customers.FindAsync(id);
         if (customer != null)
         {
-            
             return customer;
         }
         else
         {
-            return new Customer();
+            return  new  {Message = "Not find id in table Customer"};
         }
     }
      public async Task<Customer> Update(int id, Customer _customer)
     {   
-        
-        var account = await _DBContext.Customers.SingleOrDefaultAsync(i => i.CustomerId == id);
-                await _DBContext.SaveChangesAsync();
-            return account;
+                try
+                {
+                    _DBContext.Update(_customer);
+                    await _DBContext.SaveChangesAsync();
+                    return _customer;
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CustomerExists(_customer.CustomerId))
+                    {
+                         throw;
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
     }
-    public async Task<Customer> Insert(Customer _customer)
+    public async Task<Customer> Insert([Bind("CustomerId,FirstName,LastName,Phone,Email,Street,City,State,ZipCode")] Customer _customer)
     {
            _DBContext.Customers.Add(_customer);
             await _DBContext.SaveChangesAsync();
-
+        return _customer;
     }
 
     public async Task<Customer> Delete(int id)
@@ -56,7 +71,8 @@ public class CustomerService : ICustomerService
                 await _DBContext.SaveChangesAsync();
             return customer;
     }
-
-
-
+ private bool CustomerExists(int id)
+        {
+          return (_DBContext.Customers?.Any(e => e.CustomerId == id)).GetValueOrDefault();
+        }
 }

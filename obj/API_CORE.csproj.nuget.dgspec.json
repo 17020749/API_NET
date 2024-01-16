@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vlive_Core\\Desktop\\API_CORE\\API_CORE.csproj": {}
+    "C:\\Users\\Vlive_Core\\Desktop\\API_NET\\API_CORE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vlive_Core\\Desktop\\API_CORE\\API_CORE.csproj": {
+    "C:\\Users\\Vlive_Core\\Desktop\\API_NET\\API_CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vlive_Core\\Desktop\\API_CORE\\API_CORE.csproj",
+        "projectUniqueName": "C:\\Users\\Vlive_Core\\Desktop\\API_NET\\API_CORE.csproj",
         "projectName": "API_CORE",
-        "projectPath": "C:\\Users\\Vlive_Core\\Desktop\\API_CORE\\API_CORE.csproj",
+        "projectPath": "C:\\Users\\Vlive_Core\\Desktop\\API_NET\\API_CORE.csproj",
         "packagesPath": "C:\\Users\\Vlive_Core\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vlive_Core\\Desktop\\API_CORE\\obj\\",
+        "outputPath": "C:\\Users\\Vlive_Core\\Desktop\\API_NET\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

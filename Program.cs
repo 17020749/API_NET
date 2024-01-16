@@ -2,7 +2,7 @@ using API_CORE.Models;
 using Microsoft.EntityFrameworkCore;
 using API_CORE.Data;
 using API_CORE.Services;
-using ProductAPIVS.Container;
+using API_CORE.Container;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

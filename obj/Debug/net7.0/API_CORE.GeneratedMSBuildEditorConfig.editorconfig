@@ -9,31 +9,31 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = API_CORE
 build_property.RootNamespace = API_CORE
-build_property.ProjectDir = C:\Users\Vlive_Core\Desktop\API_CORE\
+build_property.ProjectDir = C:\Users\Vlive_Core\Desktop\API_NET\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Vlive_Core\Desktop\API_CORE
+build_property.MSBuildProjectDirectory = C:\Users\Vlive_Core\Desktop\API_NET
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Vlive_Core/Desktop/API_CORE/Views/Customer/Create.cshtml]
+[C:/Users/Vlive_Core/Desktop/API_NET/Views/Customer/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vlive_Core/Desktop/API_CORE/Views/Customer/Delete.cshtml]
+[C:/Users/Vlive_Core/Desktop/API_NET/Views/Customer/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vlive_Core/Desktop/API_CORE/Views/Customer/Details.cshtml]
+[C:/Users/Vlive_Core/Desktop/API_NET/Views/Customer/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vlive_Core/Desktop/API_CORE/Views/Customer/Edit.cshtml]
+[C:/Users/Vlive_Core/Desktop/API_NET/Views/Customer/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Vlive_Core/Desktop/API_CORE/Views/Customer/Index.cshtml]
+[C:/Users/Vlive_Core/Desktop/API_NET/Views/Customer/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
