@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using API_CORE.Models;
-using API_CORE.Services;
+using API_CORE.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using API_CORE.Services;
+
 namespace API.Controllers.Api
 {
     [Route("api/[controller]")]
@@ -23,24 +26,26 @@ namespace API.Controllers.Api
         // Đây là một endpoint yêu cầu xác thực. 
         // Bạn có thể truy cập thông tin đăng nhập qua HttpContext.User
 
-        var userName = HttpContext.User.Identity.Name;
-        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var userName = HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+        var userRole = HttpContext.User.FindFirst(ClaimTypes.Role)?.Value;
 
         // Các logic xử lý khác
 
-        return Ok($"Hello, authenticated user {userName} (ID: {userId})!");
+        return Ok(new {
+            name = userName,
+            role = userRole
+        });
     }
         // GET: api/ApiCustomer
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize (Roles = "manager")]
         public async Task<ActionResult> GetCustomers()
         {
-            if(User.HasClaim("Permission", "Get")) 
-            {
+
                 var customer = await _customerService.GetAll();
                 return Ok(customer);
-            }
-         return Forbid();
+
         }
 
         // GET: api/ApiCustomer/5

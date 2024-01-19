@@ -1,11 +1,11 @@
 
 using Microsoft.EntityFrameworkCore;
-using API_CORE.Data;
-using API_CORE.Services;
-using API_CORE.Container;
+using API_CORE.Service;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using API_CORE.Models;
+using API_CORE.Services;
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -16,8 +16,8 @@ builder.Services.AddDbContext<BikeStoresContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConString"));
     }
 );
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-
 builder.Services.AddAuthentication(options =>
     {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -25,6 +25,8 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
+    o.SaveToken = true;
+    o.RequireHttpsMetadata = false;
     o.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = builder.Configuration["Jwt:Issuer"],

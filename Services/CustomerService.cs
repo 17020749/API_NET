@@ -2,12 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using API_CORE.Models;
 using API_CORE.Services;
-using API_CORE.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
 using NuGet.Protocol.Plugins;
 
-namespace API_CORE.Container;
+namespace API_CORE.Services;
 public class CustomerService : ICustomerService
 {
     private readonly BikeStoresContext _DBContext;

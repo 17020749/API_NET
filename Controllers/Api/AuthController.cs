@@ -1,65 +1,57 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
+using API_CORE.Response;
 using System.Security.Claims;
 using System.Text;
-using API_CORE.Models; // Đảm bảo đường dẫn đúng tới namespace của model User
-using API_CORE.Services; // Đảm bảo đường dẫn đúng tới namespace của các dịch vụ
-
-[ApiController]
+using API_CORE.Models;
+using API_CORE.Service;
+namespace API_CORE.Controllers.Api{
 [Route("api/[controller]")]
+[ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly IConfiguration _configuration;
+    private readonly BikeStoresContext _bikeStoresContext;
+    private readonly ITokenService _tokenService;
 
-    public AuthController(IConfiguration configuration)
+    public AuthController(BikeStoresContext bikeStoresContext, ITokenService tokenService)
     {
-        _configuration = configuration;
+        _bikeStoresContext = bikeStoresContext ?? throw new ArgumentNullException(nameof(bikeStoresContext));
+        _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
     }
 
-    [HttpPost("login")]
-    public IActionResult Login([FromBody] User loginRequest)
+    [HttpPost, Route("login")]
+    public IActionResult Login([FromBody] UserToken loginModel)
     {
-        // Kiểm tra thông tin đăng nhập
-        if ((loginRequest.UserName == "test" && loginRequest.Password == "test") || (loginRequest.UserName == "admin" && loginRequest.Password  =="admin"))
+        if (loginModel is null)
         {
-            // Tạo token
-            var token = GenerateToken(loginRequest.UserName);
-            // Trả về token
-            return Ok(new { Token = token });
+            return BadRequest("Invalid client request");
         }
-        // Đăng nhập không thành công
-        return Unauthorized(new { Message = "Invalid username or password" });
-    }
 
-    private string GenerateToken(string userName)
-    {
-        var issuer = _configuration["Jwt:Issuer"];
-        var audience = _configuration["Jwt:Audience"];
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+        var user = _bikeStoresContext.UserTokens.FirstOrDefault(u => 
+            (u.Name == loginModel.Name) && (u.Password == loginModel.Password));
+        if (user is null)
+            return Unauthorized();
 
-        var tokenDescriptor = new SecurityTokenDescriptor
+        var claims = new List<Claim>
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, userName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),   
-                new Claim(ClaimTypes.Role, userName),
-                new Claim("Permission", "Get"),
-                new Claim("Permission", "Create"),
-                new Claim("Permission", "Update"),
-                new Claim("Permission", "Delete"),
-            }),
-            Expires = DateTime.UtcNow.AddMinutes(5),
-            Issuer = issuer,
-            Audience = audience,
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
+            new Claim(ClaimTypes.Name, loginModel.Name),
+            new Claim(ClaimTypes.Role, "Manager")
         };
+        var accessToken = _tokenService.GenerateAccessToken(claims);
+        var refreshToken = _tokenService.GenerateRefreshToken();
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+
+        _bikeStoresContext.SaveChanges();
+
+        return Ok(new AuthenticatedResponse
+        {
+            Token = accessToken,
+            RefreshToken = refreshToken
+        });
     }
 }
+}
+

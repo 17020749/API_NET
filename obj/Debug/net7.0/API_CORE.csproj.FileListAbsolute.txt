@@ -287,8 +287,6 @@ C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.AssemblyInfo.cs
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.csproj.CoreCompileInputs.cache
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.RazorAssemblyInfo.cache
-C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.RazorAssemblyInfo.cs
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.sourcelink.json
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.dll
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\refint\API_CORE.dll
@@ -564,3 +562,4 @@ C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.csproj.CopyComplet
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\API_CORE.genruntimeconfig.cache
 C:\Users\Vlive_Core\Desktop\API_NET\obj\Debug\net7.0\ref\API_CORE.dll
 C:\Users\Vlive_Core\Desktop\API_NET\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Vlive_Core\Desktop\API_NET\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
