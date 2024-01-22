@@ -19,7 +19,11 @@ public class AuthController : ControllerBase
         _bikeStoresContext = bikeStoresContext ?? throw new ArgumentNullException(nameof(bikeStoresContext));
         _tokenService = tokenService ?? throw new ArgumentNullException(nameof(tokenService));
     }
-
+    [HttpGet("getListUser")]
+    public IActionResult getListUser() 
+    {
+        return Ok(_bikeStoresContext.UserTokens.ToList());
+    }
     [HttpPost, Route("login")]
     public IActionResult Login([FromBody] UserToken loginModel)
     {

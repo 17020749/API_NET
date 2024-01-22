@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using API_CORE.Response;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using API_CORE.Models;
 using API_CORE.Service;
@@ -34,7 +30,7 @@ public class TokenController : ControllerBase
 
         var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
         var username = principal.Identity.Name; //this is mapped to the Name claim by default
-
+        
         var user = _bikeStoresContext.UserTokens.SingleOrDefault(u => u.Name == username);
 
         if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)

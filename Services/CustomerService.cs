@@ -1,11 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using API_CORE.Models;
-using API_CORE.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http.HttpResults;
-using NuGet.Protocol.Plugins;
-
 namespace API_CORE.Services;
 public class CustomerService : ICustomerService
 {

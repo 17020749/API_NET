@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using API_CORE.Models;
-using API_CORE.Service;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using API_CORE.Services;
@@ -39,7 +37,7 @@ namespace API.Controllers.Api
     }
         // GET: api/ApiCustomer
         [HttpGet]
-        [Authorize (Roles = "manager")]
+        [Authorize (Roles = "Manager")]
         public async Task<ActionResult> GetCustomers()
         {
 
